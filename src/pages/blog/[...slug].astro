@@ -1,0 +1,133 @@
+---
+import { render, getCollection, type CollectionEntry } from "astro:content";
+import BaseHead from "../../components/BaseHead.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import { getEntries } from "astro:content";
+import SubscribeForm from "../../components/SubscribeForm.astro";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: post,
+  }));
+}
+
+/* interface Props {
+  entry: CollectionEntry<"blog">;
+}
+
+ */ // 2. When it's time to render, you can get the entry directly from the prop
+const post = Astro.props;
+const { Content, remarkPluginFrontmatter } = await render(post);
+
+const projectPosts = await getEntries(post.data.projects);
+---
+
+<html lang="en" class="scroll-smooth">
+  <head>
+    <BaseHead title={post.data.title} description={post.data.description} />
+  </head>
+  <body>
+    <Header />
+    <main>
+      <article>
+        <div
+          class="flex flex-col items-center justify-center article-header bg-hero p-25 text-black-900"
+        >
+          <div class="article-title">
+            <h1>{post.data.title}</h1>
+          </div>
+          <div class="xl">{post.data.description}</div>
+          <div class="flex flex-row gap-4">
+            <div class="flex flex-row m-3 date-time med">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                ><path
+                  fill="currentColor"
+                  d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v14a2 2 0 0 0 2 2h14c1.11 0 2-.89 2-2V5a2 2 0 0 0-2-2m0 16H5V9h14zM5 7V5h14v2zm2 4h10v2H7zm0 4h7v2H7z"
+                ></path></svg
+              >
+              Published on {
+                new Date(post.data.publishDate).toLocaleDateString(undefined, {
+                  dateStyle: "medium",
+                  timeZone: "UTC",
+                })
+              }
+            </div>
+            <div class="flex flex-row m-3 med">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                ><path
+                  fill="currentColor"
+                  d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10a10 10 0 0 0 10-10A10 10 0 0 0 12 2m4.2 14.2L11 13V7h1.5v5.2l4.5 2.7z"
+                ></path></svg
+              >
+              {remarkPluginFrontmatter.minutesRead}
+            </div>
+          </div>
+          <ul class="flex flex-row flex-wrap m-3 list-none med">
+            {
+              post.data.tags && post.data.tags.length > 0 ? (
+                post.data.tags.map((tag) => (
+                  <li class="m-2 list-none tag">
+                    <a
+                      class="underline hover:text-black-900 visited:text-black-900 text-black-900"
+                      href={`/tags/${tag}`}
+                      title={`View posts tagged "${tag}"`}
+                    >
+                      #{tag.replace(/-/g, " ")}
+                    </a>
+                  </li>
+                ))
+              ) : (
+                <li class="tag">No tags found.</li>
+              )
+            }
+          </ul>
+        </div>
+
+        <div class="grid grid-cols-12 gap-4">
+          <div class="col-span-2 bg-gradient"></div>
+          <div
+            class="col-span-10 main-content text-black-900 padding-y-xxl"
+          >
+            <Content />
+            <h3>Get Weekly Updates</h3>
+            <SubscribeForm />
+            <h3>Learn More About These Projects</h3>
+            <hr />
+            <ul>
+              {
+                projectPosts.length > 0 ? (
+                  projectPosts.map((project) => (
+                    <li class="capitalize lar">
+                      <a
+                        href={`/projects/${project.id}`}
+                        title={`View "${project.data.title}"`}
+                      >
+                        {project.data.title}
+                      </a>
+                    </li>
+                  ))
+                ) : (
+                  <li>No projects featured.</li>
+                )
+              }
+            </ul>
+          </div>
+        </div>
+      </article>
+    </main>
+    <footer>
+      <Footer />
+    </footer>
+  </body>
+</html>

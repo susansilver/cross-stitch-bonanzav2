@@ -1,0 +1,75 @@
+---
+import {
+  render,
+  getCollection,
+  type CollectionEntry,
+  getEntries,
+} from "astro:content";
+import BaseHead from "../../components/BaseHead.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("projects");
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: post,
+  }));
+}
+
+const post = Astro.props;
+const { Content } = await render(post);
+
+const progressPosts = await getEntries(post.data.progress);
+---
+
+<html lang="en">
+  <head>
+    <BaseHead
+      title={`${post.data.title}`}
+      description={`${post.data.description}`}
+    />
+  </head>
+  <body>
+    <Header />
+
+    <main>
+      <div
+        class="flex flex-col items-center justify-center article-header bg-hero p-25 text-black-900"
+      >
+        <h1>{post.data.title}</h1>
+      </div>
+      <div class="grid min-h-screen grid-cols-12 gap-4">
+        <div class="col-span-2 bg-gradient"></div>
+        <div
+          class="col-span-10 main-content text-black-900 lar padding-y-xxl"
+        >
+          <Content />
+          <h3>View Progress</h3>
+          <hr />
+          <ul>
+            {
+              progressPosts.length > 0 ? (
+                progressPosts.map((progress) => (
+                  <li class="capitalize lar">
+                    <a
+                      href={`/blog/${progress.id}`}
+                      title={`View Progress from "${progress.data.title}"`}
+                    >
+                      {progress.data.title}
+                    </a>
+                  </li>
+                ))
+              ) : (
+                <li>No progress featured.</li>
+              )
+            }
+          </ul>
+        </div>
+      </div>
+    </main>
+    <footer>
+      <Footer />
+    </footer>
+  </body>
+</html>

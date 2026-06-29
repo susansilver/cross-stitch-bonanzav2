@@ -1,17 +1,167 @@
 ---
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { getCollection, type CollectionEntry } from "astro:content";
 
+const projectWips = (await getCollection('projects', ({ data }) => {
+  return data.wip !== false;
+})).sort((a, b) => b.data.startDate.valueOf() - a.data.startDate.valueOf());
+
+const projectFinishes = (await getCollection('projects', ({ data }) => {
+  return data.wip !== true;
+})).sort((a, b) => {
+  const aDate = a.data.finishDate ? new Date(a.data.finishDate).valueOf() : 0;
+  const bDate = b.data.finishDate ? new Date(b.data.finishDate).valueOf() : 0;
+  return bDate - aDate;
+});
+
+const blogPosts = (await getCollection("blog"))
+ .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
+  .slice(0, 5);
+
+const tags = [...new Set(blogPosts.map((post: any) => post.data.tags).flat())];
+
+import { Image } from "astro:assets";
 ---
 
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
+  <head>
+    <BaseHead title="Home" description="A blog about cross stitch" />
+  </head>
+
+  <body class="bg-gradient med text-black-900">
+    
+    <Header /> 
+   <main>
+    <div class="wrapper padding-y-xxl padding-x-xxl">
+    <h2>WIPs</h2>
+    <div>
+        <ul>
+          <div class="flex flex-wrap gap-6">
+                   {
+            projectWips.filter((post) => !post?.data?.ufo).map((post) => (
+               
+              <li class="list-none">
+                <div class="container">           
+                  
+                   {post.data.thumbnail && (
+                  <p>
+                    
+                    <Image
+                      src={post.data.thumbnail.src}
+                      format="jpg"
+                      quality="high"
+                      width="300"
+                      height="500"
+                      alt={post.data.thumbnail.alt}
+                      layout="full-width"
+                      style="box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;"
+                    />
+                  </p>
+                )}
+              <div class="content">  <a href={`/projects/${post.id}`}>{post.data.title}</a></div>  
+             </div> </li>
+            ))
+          }</div>
+        </ul>
+     </div>
+    <div class="flex gap-4">
+      <div class="flex-1"> 
+        <h2>Blog</h2>
+        <ul>
+          {
+            blogPosts.map((post) => (
+              <li class="list-none">
+                <div class="rounded-xl bg-hero" style="box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;">
+                  <ul class="p-5">
+                    <li class="list-none">
+                <a href={`/blog/${post.id}`}>{post.data.title}</a> <hr></li>
+                <li class="list-none">
+                 
+                  {
+              new Date(post.data.publishDate).toLocaleDateString(undefined, {
+                dateStyle: "medium",
+                timeZone: "UTC",
+              })
+            }</li></ul>
+                </div>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <div class="flex-1">
+<h2>Topics</h2>
+   <ul class="flex flex-row flex-wrap gap-4">
+     
+       {tags.map((tag) => (
+      <li class="p-2 list-none bg-hero rounded-xl"><a href={`/tags/${tag}`}>#{tag}</a></li>
+    ))}
+   </ul>
+      </div>
+  </div>
+  <div>
+    <h2>Finishes</h2>
+    <div>
+      <ul>
+          <div class="flex flex-wrap gap-6">
+                   {
+            projectFinishes.map((post) => (
+              <div>
+              <li class="list-none">
+                <div class="container">           
+                  
+                   {post.data.thumbnail && (
+                  <p>
+                    
+                    <Image
+                      src={post.data.thumbnail.src}
+                      format="jpg"
+                      quality="high"
+                      width="300"
+                      height="500"
+                      alt={post.data.thumbnail.alt}
+                      layout="full-width"
+                      style="box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;"
+                    />
+                  </p>
+                )}
+              <div class="content">  <a href={`/projects/${post.id}`}>{post.data.title}</a></div>  </div> 
+              </li></div>
+            ))
+          }</div>
+        </ul>
+      </div>
+  </div>  
+
+  </div>
+   </main>
+    <footer>
+    <Footer /></footer>
+   
+  </body>
 </html>
+
+<style>
+ 
+  .container {
+  position: relative;
+  max-width: 800px; /* Maximum width */
+  margin: 0 auto; /* Center it */
+}
+
+.container .content {
+  position: absolute; /* Position the background text */
+  bottom: 0; /* At the bottom. Use top:0 to append it to the top */
+  background: rgb(255, ,255, 255); /* Fallback color */
+  background: rgba(62, 196, 109, 0.8); /* Black background with 0.5 opacity */
+  color: #000; /* Grey text */
+  width: 100%; /* Full width */
+  padding: 20px; /* Some padding */
+}
+
+ 
+
+ 
+ </style>

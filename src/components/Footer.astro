@@ -1,0 +1,19 @@
+<div class="flex flex-row justify-center items-center bg-sky-300 p-5 gap-4">
+  <div class="med">
+    &copy; <span id="copy"></span> by Suzza Silver
+  </div>
+  <div><a href="mailto:suzzastitched@susansilver.net">Contact</a></div>
+  <div><a href="/credits">Credits</a></div>
+</div>
+
+<script>
+  const copyElement = document.querySelector("#copy");
+
+  if (copyElement !== null) {
+    (copyElement as HTMLElement).textContent = new Date()
+      .getFullYear()
+      .toString();
+  } else {
+    console.error('Element with ID "copy" not found.');
+  }
+</script>

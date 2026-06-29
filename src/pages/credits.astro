@@ -1,0 +1,146 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<html lang="en">
+  <head>
+    <BaseHead title="Credits" description="Giving thanks and sharing links" />
+  </head>
+  <body>
+    <Header />
+
+    <main>
+      <div
+        class="flex flex-col items-center justify-center article-header bg-hero p-25 text-black-900"
+      >
+        <h1>Credits</h1>
+      </div>
+      <div class="grid grid-cols-12 gap-4">
+        <div class="col-span-2 bg-gradient"></div>
+        <div
+          class="col-span-10 text-black main-content lar padding-y-xxl"
+        >
+          <section>
+            <p>
+              Back in the day, people would add something called humans.txt to
+              their websites to give credits. Typical things included were
+              contact information and technology used to build the website. I
+              like this tradition but opted to make this its own separate
+              page.I'll be listing all the typical stuff that I used to build
+              this website along with some shout outs.
+            </p>
+            <h2>Contact Information</h2>
+            <p>Author: Susan Silver</p>
+            <p>Email: SuzzaStitches@susansilver.net</p>
+            <p>Location: Oregon</p>
+
+            <h2 class="flex flex-row items-center justify-center gap-2">
+              <span> Built With</span>
+              <span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="30"
+                  height="30"
+                  viewBox="0 0 24 24"
+                  ><path
+                    fill="currentColor"
+                    d="m12 21.35l-1.45-1.32C5.4 15.36 2 12.27 2 8.5C2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3C19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53z"
+                  ></path></svg
+                ></span
+              >
+            </h2>
+            <p><a href="https://astro.build">Astro</a></p>
+            <p><a href="https://tailwindcss.com/">Tailwind CSS</a></p>
+            <h2>Resources</h2>
+            Fonts
+            <hr />
+            <p>
+              <a href="https://uncut.wtf/display/solide/">Solide Mirage</a> by Jérémy
+              Landes via Uncut used for website name.
+            </p>
+            <p>
+              <a href="https://uncut.wtf/sans-serif/abordage/">Abordage</a> from
+              Degheest by Ange Degheest, Camille Depalle, Eugénie Bidaut, Luna Delabre,
+              Mandy Elbé, May Jolivet, Oriane Charvieux, Benjamin Gomez, Justine
+              Herbel. Distributed by velvetyne.fr. Used as sans font for the website
+              and is found on Uncut.
+            </p>
+            Astro Integrations
+            <hr />
+
+            <p>
+              <a href="https://docs.astro.build/en/recipes/rss/">RSS Feed</a>
+            </p>
+            <p>
+              <a
+                href="https://docs.astro.build/en/guides/integrations-guide/sitemap/"
+                >Sitemap</a
+              >
+            </p>
+            <p>
+              <a
+                href="https://accessible-astro.incluud.dev/getting-started/introduction/"
+                >Accessible Astro</a
+              >
+            </p>
+            <p>
+              <a href="https://github.com/surjithctly/astro-navbar"
+                >Astro-Navbar</a
+              >
+            </p>
+            <p><a href="https://astro-embed.netlify.app/">Astro Embed</a></p>
+            <p><a href="https://github.com/PlayForm/Compress">Compress</a></p>
+            <p>
+              <a
+                href="https://docs.astro.build/en/guides/integrations-guide/mdx/"
+                >MDX</a
+              >
+            </p>
+            <p>
+              <a href="https://docs.astro.build/en/guides/styling/#tailwind"
+                >Tailwind CSS</a
+              >
+            </p>
+            <p>
+              <a href="https://docs.astro.build/en/recipes/external-links/"
+                >Add icons to external links in Markdown</a
+              >
+            </p>
+            <p>
+              <a href="https://docs.astro.build/en/recipes/reading-time/"
+                >Add reading time</a
+              >
+            </p>
+            CSS
+            <hr />
+            <p>
+              <a
+                href="https://gomakethings.com/how-to-break-an-image-out-of-its-parent-container-with-css/"
+                >How to break an image out of its parent container</a
+              > by Chris Ferdinandi.
+            </p>
+            <p>
+              <a href="https://heropatterns.com/">Hero Patterns</a> for SVG background.
+            </p>
+            <p>
+              <a href="https://iconify.design/">Iconify</a> for SVG icons.
+            </p>
+            <!--  JavaScript
+            <hr />
+            <p>
+              <a
+                href="https://little-fire.com/make-all-external-links-open-in-a-new-window/"
+                >Open external links in a new window</a
+              >
+            </p> -->
+          </section>
+        </div>
+      </div>
+    </main>
+    <footer>
+      <Footer />
+    </footer>
+  </body>
+</html>

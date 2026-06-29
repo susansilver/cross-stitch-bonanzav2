@@ -1,0 +1,126 @@
+---
+import { getCollection } from "astro:content";
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+
+const projectPosts = (await getCollection("projects")).sort(
+  (a, b) => a.data.startDate.valueOf() - b.data.startDate.valueOf()
+);
+---
+
+<html lang="en">
+  <head>
+    <BaseHead
+      title="My Projects"
+      description="A listing of all projects started and completed."
+    />
+  </head>
+  <body>
+    <Header />
+
+    <main>
+      <div
+        class="flex flex-col items-center justify-center article-header bg-hero p-25 text-black-900"
+      >
+        <h1>My Projects in Order by Start Date</h1>
+      </div>
+      <div class="grid grid-cols-12 gap-4">
+        <div class="col-span-2 bg-gradient"></div>
+        <div
+          class="col-span-10 main-content text-black-900 lar padding-y-xxl"
+        >
+          <section>
+            <h2>Started in 2025</h2>
+            <ol>
+              {
+                projectPosts.filter((post) => post?.data?.year === "2025" && !post?.data?.ufo).map((post) => (
+                  <li>
+                    <div>
+                      <h3>{post.data.title}</h3>
+                      <p class="med">
+                        Start:{" "}
+                        {new Date(post.data.startDate).toLocaleDateString(
+                          undefined,
+                          {
+                            dateStyle: "medium",
+                            timeZone: "UTC",
+                          }
+                        )}{" "}
+                        <span class="text-darkblue">✪</span>
+                      </p>
+
+                      {post.data.showFinish && post.data.finishDate && (
+                        <p class="med">
+                          Finish:{" "}
+                          {new Date(post.data.finishDate).toLocaleDateString(
+                            undefined,
+                            {
+                              dateStyle: "medium",
+                              timeZone: "UTC",
+                            }
+                          )}{" "}
+                          <span class="text-black-900"> ✓</span>
+                        </p>
+                      )}
+
+                      <a href={`/projects/${post.id}`} class="med">
+                        About This Project
+                      </a>
+                    </div>
+                  </li>
+                ))
+              }
+            </ol>
+          </section>
+          <section>
+            <h2>Started in 2026</h2>
+            <ol>
+              {
+                projectPosts.filter((post) => post?.data?.year === "2026").map((post) => (
+                  <li>
+                    <div>
+                      <h3>{post.data.title}</h3>
+                      <p class="med">
+                        Start:{" "}
+                        {new Date(post.data.startDate).toLocaleDateString(
+                          undefined,
+                          {
+                            dateStyle: "medium",
+                            timeZone: "UTC",
+                          }
+                        )}{" "}
+                        <span class="text-darkblue">✪</span>
+                      </p>
+
+                      {post.data.showFinish && post.data.finishDate && (
+                        <p class="med">
+                          Finish:{" "}
+                          {new Date(post.data.finishDate).toLocaleDateString(
+                            undefined,
+                            {
+                              dateStyle: "medium",
+                              timeZone: "UTC",
+                            }
+                          )}{" "}
+                          <span class="text-black-900"> ✓</span>
+                        </p>
+                      )}
+
+                      <a href={`/projects/${post.id}`} class="med">
+                        About This Project
+                      </a>
+                    </div>
+                  </li>
+                ))
+              }
+            </ol>
+          </section>
+        </div>
+      </div>
+    </main>
+    <footer>
+      <Footer />
+    </footer>
+  </body>
+</html>

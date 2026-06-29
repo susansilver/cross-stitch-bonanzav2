@@ -1,0 +1,87 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { Image } from "astro:assets";
+import suzzaAvatar from "../assets/img/suzza-avatar.jpg";
+---
+
+<html lang="en">
+  <head>
+    <BaseHead
+      title="About"
+      description="This is a website about my cross stitch journey."
+    />
+  </head>
+  <body>
+    <Header />
+
+    <main>
+      <div
+        class="flex flex-col items-center justify-center article-header bg-hero p-25 text-black-900"
+      >
+        <h1>About Suzza</h1>
+      </div>
+      <div class="grid grid-cols-12 gap-4">
+        <div class="col-span-2 bg-gradient"></div>
+        <div
+          class="col-span-10 main-content text-black-900 lar padding-y-xxl"
+        >
+          <section>
+            <h2>What this is all about</h2>
+
+            <p>
+              Hi, welcome to Suzza Stitches. This is the place where I talk
+              about cross stitching. It’s like a Flosstube but more stationary.
+              I’ll be sharing my Works in Progress (WIPs) and my finishes. Maybe
+              a few Fully Finished Objects (FFO). I take great joy in seeing
+              other people’s stitching and I’m sometimes inspired to take up new
+              pieces. We are a community that likes to enable.
+            </p><p>
+              I’ll be sharing haul too! I love collecting fabric and patterns. I
+              have more in my stash than I will ever stitch. I might go through
+              and share a few with you too. I’m hoping that if you like what you
+              see that you will leave a comment. Share your links to your
+              Youtube or Instagram so we can check out your work. Let me know
+              what you are working on! I’m always interested in seeing people’s
+              work and their progress.
+            </p>
+
+            <h2>Who I am</h2>
+
+            <p>
+              <Image
+                src={suzzaAvatar}
+                alt="Profile Picture for Suzza Silver"
+                class="float-right w-auto rounded-full h-50"
+                loading="eager"
+                style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);"
+                layout="full-width"
+              />
+
+              I am Suzza, a person who has made an income from the internet
+              since about 2011. I started as freelance writer and worked my way
+              into Community Management. Community managers are the one that
+              post, respond, and moderate communities. I often explain it as
+              this. If you Tweet at Coca Cola, and someone responds to you, it
+              is probably a community manager. You will mostly find us in forums
+              but sometimes on social media as well.
+            </p><p>
+              My first love is blogging though. I have a writing style that is
+              well suited to the medium. I’ve always found success when I write.
+              I’m working on trying to get published in a proper publication.
+              Hoping to make the leap into more serious journalism. I’m
+              currently working on a project about the mathematician GH Hardy.
+              He is my favorite and I believe that he is misunderstood. I’m
+              hoping to write something that will help people see him in a new
+              way. As warmly as I do.
+            </p>
+          </section>
+        </div>
+      </div>
+    </main>
+    <footer>
+      <Footer />
+    </footer>
+  </body>
+</html>

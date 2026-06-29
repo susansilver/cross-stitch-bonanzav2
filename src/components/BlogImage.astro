@@ -1,0 +1,26 @@
+---
+import { Image } from "astro:assets";
+
+const { remote, alt, caption } = Astro.props;
+---
+
+<figure>
+  <Image
+    src={remote}
+    format="avif"
+    quality="mid"
+    alt={alt}
+    layout="full-width"
+    class="full-width"
+  />
+  <figcaption class="med m-4 p-2 w-full">
+    {caption}
+  </figcaption>
+</figure>
+
+<style>
+  figcaption {
+    background-color: rgba(62, 196, 109, 0.5);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+</style>

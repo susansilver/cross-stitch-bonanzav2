@@ -1,0 +1,34 @@
+---
+// CampaignCard.astro
+interface Props {
+  title: string;
+  desc: string;
+  readMore: string;
+}
+
+const { title, desc, readMore } = Astro.props;
+---
+
+<div class="card rounded-lg h-96 bg-gradient text-white-50 relative">
+  <a href={readMore}><h3 class="text-white-50">{title}</h3></a>
+  <hr />
+  <p>{desc}</p>
+  <a
+    href={readMore}
+    class="p-5 text-black-900 bg-darkblue rounded-sm readMore absolute right-3 bottom-3"
+    style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);">Read More</a
+  >
+</div>
+
+<style>
+  .card {
+    width: 30ch;
+    padding: 1.5em;
+    border: 2px solid #212121;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+
+  .card a {
+    color: #fafafa;
+  }
+</style>

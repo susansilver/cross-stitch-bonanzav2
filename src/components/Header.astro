@@ -1,0 +1,62 @@
+---
+import HeaderLink from "./HeaderLink.astro";
+import {
+  Astronav,
+  MenuItems,
+  MenuIcon,
+  Dropdown,
+  DropdownItems,
+  DropdownSubmenu,
+} from "astro-navbar";
+---
+
+<header class="lg:flex p-5 gap-5 bg-sky-200 border-b-2 border-slate-500">
+  <Astronav>
+    <div class="flex w-full justify-between xl">
+      <a href="https://suzzastitches.com" class="brand-font">Suzza Stitches</a>
+      <div class="block lg:hidden">
+        <MenuIcon class="w-15 h-15 text-gray-800" />
+      </div>
+    </div>
+    <MenuItems class="hidden lg:flex">
+      <ul class="flex flex-col lg:flex-row lg:gap-4 med">
+        <li class="list-none"><HeaderLink href="/">Home</HeaderLink></li>
+        <li class="list-none"><HeaderLink href="/about">About</HeaderLink></li>
+        <li class="list-none"><HeaderLink href="/blog">Blog</HeaderLink></li>
+        <li class="list-none">
+          <HeaderLink href="/current-projects">Projects</HeaderLink>
+        </li>
+        <li class="list-none">
+          <HeaderLink href="/watching">Watchlist</HeaderLink>
+        </li>
+        <li class="list-none">
+          <HeaderLink href="/subscribe">Subscribe</HeaderLink>
+        </li>
+      </ul>
+    </MenuItems>
+  </Astronav>
+</header>
+<!-- 
+
+<div>
+  <Astronav>
+    <div class="flex justify-between flex-row">
+      <div class="flex justify-between">
+        <a href="https://suzzastitches.com" class="brand-font">Suzza Stitches</a
+        >
+        <MenuIcon class="w-4 h-4 text-gray-800" />
+      </div>
+      <MenuItems class="hidden lg:flex">
+        <ul class="flex lg:flex-row flex-col">
+          <li><HeaderLink href="/">Home</HeaderLink></li>
+          <li><HeaderLink href="/about">About</HeaderLink></li>
+          <li><HeaderLink href="/blog">Blog</HeaderLink></li>
+          <li><HeaderLink href="/current-projects">My Projects</HeaderLink></li>
+          <li><HeaderLink href="/watching">Currently Watching</HeaderLink></li>
+          <li><HeaderLink href="/subscribe">Subscribe</HeaderLink></li>
+        </ul>
+      </MenuItems>
+    </div>
+  </Astronav>
+</div>
+ -->

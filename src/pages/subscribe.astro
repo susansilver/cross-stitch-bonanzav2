@@ -1,0 +1,80 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import SubscribeForm from "../components/SubscribeForm.astro";
+---
+
+<html lang="en">
+  <head>
+    <BaseHead
+      title="Subscribe"
+      description="Sign up for a weekly email reminder"
+    />
+  </head>
+  <body>
+    <Header />
+
+    <main>
+      <div
+        class="flex flex-col items-center justify-center article-header bg-hero p-25 text-black-900"
+      >
+        <h1>Subscribe</h1>
+      </div>
+      <div class="grid grid-cols-12 gap-4">
+        <div class="col-span-2 bg-gradient"></div>
+        <div
+          class="col-span-10 main-content text-black-900lar padding-y-xxl"
+        >
+          <section>
+            <h2>A Weekly Reminder</h2>
+
+            <p>
+              This won't be a long rambling newsletter that you might be used
+              to. It is not for marketing purposes or spam. It will be a simple
+              paragraph sent to your email with a link to the latest post.
+              That's it. I want something simple that will act as a reminder to
+              return to the website for new posts. Emails will go out weekly on
+              Sundays when new blogs are published.
+            </p>
+            <SubscribeForm />
+
+            <h2>Subscribe via RSS</h2>
+            <p>
+              There is a solution for you if you don't want another email. You
+              can also subscribe using an RSS reader. In this way, new blog
+              posts wil appear in a feed reader and you can click on links you
+              find interesting. Skip the inbox entirely and visit a website that
+              collects all your subscriptions in one place. Most websites will
+              have a RSS subscription option. This <a
+                href="https://aboutfeeds.com/"
+                >guide will tell you more about how they work and how to set it
+                up</a
+              >.
+            </p>
+            <p class="btn">
+              <a
+                href="/rss.xml"
+                class="p-5 rounded-lg bg-darkblue text-white-50"
+                >Subscribe to the Suzza Stitches RSS Feed</a
+              >
+            </p>
+          </section>
+        </div>
+      </div>
+    </main>
+    <footer>
+      <Footer />
+    </footer>
+  </body>
+</html>
+
+<style>
+  .btn a {
+    color: #fafafa;
+  }
+
+  .btn a:visited {
+    color: #fafafa;
+  }
+</style>

@@ -1,0 +1,119 @@
+---
+import { getCollection } from "astro:content";
+import BaseHead from "../../../components/BaseHead.astro";
+import Header from "../../../components/Header.astro";
+import Footer from "../../../components/Footer.astro";
+import BlogCard from "../../../components/BlogCard.astro";
+import { Pagination, Card } from "accessible-astro-components";
+
+export async function getStaticPaths({ paginate }: { paginate: any }) {
+  const allPosts = await getCollection("blog");
+
+  const sortedPosts = allPosts
+    .filter((post) => !post.data.draft) // Filter out drafts
+    .sort(
+      (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
+    ); // Sort by pubDate descending
+
+  // Use optional chaining and default value to avoid undefined tags
+  const allTags = [
+    ...new Set(sortedPosts.flatMap((post) => post.data.tags ?? [])),
+  ];
+
+  return allTags.flatMap((tag) => {
+    const filteredPosts = allPosts.filter((post) =>
+      (post.data.tags ?? []).includes(tag)
+    );
+    return paginate(filteredPosts, {
+      params: { tag },
+      pageSize: 6,
+    });
+  });
+}
+
+interface BlogPostEntry {
+  id: string;
+  data: {
+    title: string;
+    description: string;
+    heroImage: {
+      src: string;
+      alt: string;
+    };
+    draft: boolean;
+    publishDate: string; // or Date if you prefer to parse it beforehand
+    language: string;
+    comment: boolean;
+    tags: string[];
+    tag: string;
+  };
+}
+
+interface Props {
+  page: {
+    data: BlogPostEntry[];
+    currentPage: number;
+    total: number;
+    size: number;
+    url: {
+      prev: string;
+      next: string;
+    };
+  };
+}
+
+const { page } = Astro.props;
+const { params } = Astro;
+---
+
+<html lang="en">
+  <head>
+    <BaseHead
+      title={params.tag.toLowerCase().replace(/-/g, " ")}
+      description={`Tag archive for ${params.tag.toLowerCase().replace(/-/g, " ")}`}
+    />
+  </head>
+
+  <body>
+    <Header />
+    <main>
+      <div
+        class="flex flex-col items-center justify-center article-header bg-hero p-25 text-black-900"
+      >
+        <h1>{params.tag.toLowerCase().replace(/-/g, " ")} archive</h1>
+      </div>
+      <div>
+        <div class="text-black-900 lar padding-y-xxl">
+          <ul class="flex flex-wrap justify-center gap-4">
+            {
+              page.data.map((blogPostEntry) => (
+                <li class="list-none">
+                  <BlogCard
+                    title={blogPostEntry.data.title}
+                    desc={blogPostEntry.data.description}
+                    readMore={`/blog/${blogPostEntry.id}`}
+                  />
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+        <div id="page-numbers" class="flex justify-center">
+          <Pagination
+            firstPage={page.url.prev ? `/blog/` : null}
+            previousPage={page.url.prev ? page.url.prev : null}
+            nextPage={page.url.next ? page.url.next : null}
+            lastPage={page.url.next
+              ? `/blog/${Math.round(page.total / page.size)}`
+              : null}
+            currentPage={page.currentPage}
+            totalPages={Math.round(page.total / page.size)}
+          />
+        </div>
+      </div>
+    </main>
+    <footer>
+      <Footer />
+    </footer>
+  </body>
+</html>
