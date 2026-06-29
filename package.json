@@ -18,6 +18,7 @@
     "@tailwindcss/vite": "^4.3.1",
     "accessible-astro-components": "^5.3.1",
     "astro": "^7.0.3",
+    "astro-navbar": "^2.4.0",
     "tailwindcss": "^4.3.1"
   }
 }
