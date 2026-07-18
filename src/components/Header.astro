@@ -10,12 +10,12 @@ import {
 } from "astro-navbar";
 ---
 
-<header class="lg:flex p-5 gap-5 bg-sky-200 border-b-2 border-slate-500">
+<header class="gap-5 p-5 border-b-2 lg:flex bg-sky-200 border-slate-500">
   <Astronav>
-    <div class="flex w-full justify-between xl">
+    <div class="flex justify-between w-full xl">
       <a href="https://suzzastitches.com" class="brand-font">Suzza Stitches</a>
       <div class="block lg:hidden">
-        <MenuIcon class="w-15 h-15 text-gray-800" />
+        <MenuIcon class="text-gray-800 w-15 h-15" />
       </div>
     </div>
     <MenuItems class="hidden lg:flex">
@@ -26,9 +26,9 @@ import {
         <li class="list-none">
           <HeaderLink href="/current-projects">Projects</HeaderLink>
         </li>
-       <!--  <li class="list-none">
+        <li class="list-none">
           <HeaderLink href="/watching">Watchlist</HeaderLink>
-        </li> -->
+        </li> 
         <li class="list-none">
           <HeaderLink href="/subscribe">Subscribe</HeaderLink>
         </li>
@@ -40,14 +40,14 @@ import {
 
 <div>
   <Astronav>
-    <div class="flex justify-between flex-row">
+    <div class="flex flex-row justify-between">
       <div class="flex justify-between">
         <a href="https://suzzastitches.com" class="brand-font">Suzza Stitches</a
         >
         <MenuIcon class="w-4 h-4 text-gray-800" />
       </div>
       <MenuItems class="hidden lg:flex">
-        <ul class="flex lg:flex-row flex-col">
+        <ul class="flex flex-col lg:flex-row">
           <li><HeaderLink href="/">Home</HeaderLink></li>
           <li><HeaderLink href="/about">About</HeaderLink></li>
           <li><HeaderLink href="/blog">Blog</HeaderLink></li>
