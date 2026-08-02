@@ -10,6 +10,9 @@ import sitemap from "@astrojs/sitemap";
 // https://astro.build/config
 export default defineConfig({
   site: "https://suzzastitches.com",
+  redirects: {
+    "/floral-meadow-dragon-sal": "/flower-dragon-meadow-sal",
+  },
   integrations: [mdx(), sitemap()],
   fonts: [
     {
