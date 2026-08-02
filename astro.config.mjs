@@ -11,7 +11,7 @@ import sitemap from "@astrojs/sitemap";
 export default defineConfig({
   site: "https://suzzastitches.com",
   redirects: {
-    "/floral-dragon-meadow-sal": "/flower-dragon-meadow-sal",
+    "/projects/floral-dragon-meadow-sal": "/projects/flower-dragon-meadow-sal",
   },
   integrations: [mdx(), sitemap()],
   fonts: [
